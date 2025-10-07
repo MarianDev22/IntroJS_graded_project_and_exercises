@@ -4,9 +4,9 @@ console.log('Ejercicio 1')
 const usuario = {
   nombre: 'Rose',
   apellidos: 'Dewitt Bukater',
-  temas: [{modulo:'Node.js', fechaIni: "2025-10-20"}, {modulo:'Git', fechaIni: "2025-09-10"},{ modulo:'react', fechaIni:"2025-12-08"}],
+  temas: [{modulo:'Node.js', fechaIni: "2025-10-20"}, {modulo:'Git', fechaIni: "2025-09-10"},{modulo:'react', fechaIni:"2025-12-08"}],
   jobSearch: true,
     
 };
 
-console.log(usuario)
+console.log(usuario.temas[2].fechaIni)
