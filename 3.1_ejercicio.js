@@ -3,7 +3,7 @@ console.log('Exercise 3')
 Crea una función para que con estos datos de entrada se produzca los siguientes
 resultados:*/
 
-const concat = (list) => {
+const create_path = (list) => {
   const lastElement = [...list].pop().trim();
   const rest = [...list].slice(0,-1).join('/');
   return `${rest}.${lastElement}`;
@@ -15,7 +15,7 @@ const input1 = [
 'capture',
 'mp4',
 ]
-const result1 = concat(input1); // 'Downloads/Videos/capture.mp4'
+const result1 = create_path(input1); // 'Downloads/Videos/capture.mp4'
 console.log(result1);
 
 const input2 = [
@@ -23,7 +23,7 @@ const input2 = [
 'python',
 'py',
 ];
-const result2 = concat(input2); // 'CodinGame/python.py'
+const result2 = create_path(input2); // 'CodinGame/python.py'
 console.log(result2);
 
 const input3 = [
@@ -35,7 +35,7 @@ const input3 = [
 'pythonstuff',
 'py',
  ]
-const result3 = concat(input3);
+const result3 = create_path (input3);
 console.log(result3);
 // 'programming/languages/easy/beginner/useful/pythonstuff.py'
 
