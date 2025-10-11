@@ -68,7 +68,16 @@ const musicCatalog = () => {
    * @param {string} title - The title of the song to remove.
    * @throws {Error} If the playlist or song is not found.
    */
-  const removeSongFromPlaylist = (playlistName, title) => {};
+  const removeSongFromPlaylist = (playlistName, title) => {
+    const playlist = playlists.find(playlist => playlistName === playlist.name);
+     if (!playlist){
+        throw new Error (`The playlist ${playlistName} doesn't exist`);
+     }
+     if(!playlist.songs.find(song => song.title === title)) {
+      throw new Error (`The song ${title} is not in ${playlistName}`);
+     }
+     playlist.songs = playlist.songs.filter(song => title !== song.title);
+  };
 
   /**
    * Marks a song as a favorite or removes the favorite status.
@@ -96,11 +105,12 @@ const catalog1 = musicCatalog();
 
 catalog1.createPlaylist('Rock');
 catalog1.createPlaylist('Funk');
-console.log(catalog1.getAllPlaylists());
+//console.log(catalog1.getAllPlaylists());
 
 catalog1.addSongToPlaylist('Funk',{ title: 'Gravity', artist: 'John Meyer', genre: 'jazz', duration: 4 });
+catalog1.addSongToPlaylist('Funk',{ title: 'Hey Jude', artist: 'The Beatles', genre: 'rock', duration: 5 });
 
+//catalog1.removeSongFromPlaylist('Funk','Fly away');
 
-
-//catalog1.removePlaylist('Rock')
-//console.log(catalog1.getAllPlaylists());
+//catalog1.removePlaylist('Rock');
+console.log(catalog1.getAllPlaylists());
