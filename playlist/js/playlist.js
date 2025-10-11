@@ -37,7 +37,7 @@ const musicCatalog = () => {
    * Gets all playlists in the catalog.
    * @returns {Playlist[]} The list of all playlists.
    */
-  const getAllPlaylists = () => {};
+  const getAllPlaylists = () => playlists;
 
   /**
    * Removes a playlist from the catalog.
@@ -83,3 +83,8 @@ const musicCatalog = () => {
 
 export default musicCatalog;
 
+const catalog1 = musicCatalog();
+
+catalog1.createPlaylist('Rock');
+catalog1.createPlaylist('Funk');
+console.log(catalog1.getAllPlaylists());
