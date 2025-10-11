@@ -53,7 +53,14 @@ const musicCatalog = () => {
    * @param {{ title: string, artist: string, genre: string, duration: number }} song - The song to add to the playlist.
    * @throws {Error} If the playlist is not found.
    */
-  const addSongToPlaylist = (playlistName, song) => {};
+  const addSongToPlaylist = (playlistName, song) => {
+    const playlist = playlists.find(playlist => playlistName === playlist.name);
+     if (!playlist){
+        throw new Error (`The playlist ${playlistName} doesn't exist`);
+     }
+     song.favorite = false;
+     playlist.songs = [...playlist.songs, song];
+  };
 
   /**
    * Removes a song from a specific playlist.
@@ -91,5 +98,9 @@ catalog1.createPlaylist('Rock');
 catalog1.createPlaylist('Funk');
 console.log(catalog1.getAllPlaylists());
 
-catalog1.removePlaylist('Rock')
-console.log(catalog1.getAllPlaylists());
+catalog1.addSongToPlaylist('Funk',{ title: 'Gravity', artist: 'John Meyer', genre: 'jazz', duration: 4 });
+
+
+
+//catalog1.removePlaylist('Rock')
+//console.log(catalog1.getAllPlaylists());
