@@ -43,7 +43,9 @@ const musicCatalog = () => {
    * Removes a playlist from the catalog.
    * @param {string} playlistName - The name of the playlist to remove.
    */
-    const removePlaylist = (playlistName) => {};
+    const removePlaylist = (playlistName) => {
+        playlists = playlists.filter(playlist => playlistName !== playlist.name);
+    };
 
   /**
    * Adds a song to a specific playlist.
@@ -87,4 +89,7 @@ const catalog1 = musicCatalog();
 
 catalog1.createPlaylist('Rock');
 catalog1.createPlaylist('Funk');
+console.log(catalog1.getAllPlaylists());
+
+catalog1.removePlaylist('Rock')
 console.log(catalog1.getAllPlaylists());
