@@ -85,7 +85,11 @@ const musicCatalog = () => {
    * @param {string} title - The title of the song to mark as a favorite.
    * @returns {void}
    */
-  const favoriteSong = (playlistName, title) => {};
+  const favoriteSong = (playlistName, title) => {
+    const playlist = playlists.find(playlist => playlistName === playlist.name);
+    const song = playlist.songs.find(song => song.title == title);
+    song.favorite = !song.favorite;
+  };
 
   /**
    * Sorts songs in a specific playlist by a given criterion (title, artist, or duration).
@@ -113,4 +117,5 @@ catalog1.addSongToPlaylist('Funk',{ title: 'Hey Jude', artist: 'The Beatles', ge
 //catalog1.removeSongFromPlaylist('Funk','Fly away');
 
 //catalog1.removePlaylist('Rock');
+catalog1.favoriteSong('Funk','Hey Jude');
 console.log(catalog1.getAllPlaylists());
