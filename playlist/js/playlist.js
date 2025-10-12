@@ -30,7 +30,7 @@ const musicCatalog = () => {
   const createPlaylist = (playlistName) => {
     const playlist = {name: playlistName, songs:[]};
     playlists = [...playlists, playlist]
-    return playlist
+    return playlist;
   };
 
   /**
@@ -98,7 +98,21 @@ const musicCatalog = () => {
    * @returns {void}
    * @throws {Error} If the playlist is not found or the criterion is invalid.
    */
-  const sortSongs = (playlistName, criterion) => {};
+  const sortSongs = (playlistName, criterion) => {
+    const playlist = playlists.find(playlist => playlistName === playlist.name);
+    if (!playlist){
+      throw new Error (`The playlist ${playlistName} doesn't exist`);
+    }
+    if (!['title', 'artist', 'duration'].includes(criterion)) {
+    throw new Error (`It's not possible to sort songs by ${criterion}`);
+    }
+    if (criterion === 'title' || criterion === 'artist') {
+      playlist.songs.sort((a, b) => a[criterion].localeCompare(b[criterion]));
+    } else {playlist.songs.sort((a, b) => a[criterion] - b[criterion]);
+    }
+    
+
+  };
 
   return { createPlaylist, addSongToPlaylist, removeSongFromPlaylist, sortSongs, getAllPlaylists, removePlaylist, favoriteSong };
 };
@@ -118,4 +132,10 @@ catalog1.addSongToPlaylist('Funk',{ title: 'Hey Jude', artist: 'The Beatles', ge
 
 //catalog1.removePlaylist('Rock');
 catalog1.favoriteSong('Funk','Hey Jude');
+//console.log(catalog1.getAllPlaylists());
+catalog1.favoriteSong('Funk','Hey Jude');
+//console.log(catalog1.getAllPlaylists());
+catalog1.addSongToPlaylist('Funk',{ title: "Don't Phunk with My Heart", artist: 'Black Eyed Peas', genre: 'hip hop', duration: 6 })
+
+catalog1.sortSongs('Funk', 'duration');
 console.log(catalog1.getAllPlaylists());
