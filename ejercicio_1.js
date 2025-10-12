@@ -9,4 +9,11 @@ const usuario = {
     
 };
 
-console.log(usuario.temas[2].fechaIni)
+let fecha = '';
+const temas = usuario.temas
+for (const tema of temas) {
+  if (tema.modulo === 'react') {
+    fecha = tema.fechaIni
+  }
+}
+console.log(fecha)
