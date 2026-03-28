@@ -85,7 +85,16 @@ const musicCatalog = () => {
     if (!playlist.songs.find((song) => song.title === title)) {
       throw new Error(`The song ${title} is not in ${playlistName}`);
     }
-    playlist.songs = playlist.songs.filter((song) => title !== song.title);
+
+    playlists = playlists.map((playlist) => {
+        if (playlistName !== playlist.name) {
+          return playlist;
+        } else {
+          return { ...playlist, songs: [...playlist.songs.filter((song) => title !== song.title)] };
+        }
+      });
+    
+    //playlist.songs = playlist.songs.filter((song) => title !== song.title);
   };
 
   /**
@@ -157,11 +166,13 @@ console.log(catalog1.getAllPlaylists());
 catalog1.addSongToPlaylist("Funk",{ title: 'Hey Jude', artist: 'The Beatles', genre: 'rock', duration: 5 });
 
 console.log(catalog1.getAllPlaylists())
-// catalog1.removeSongFromPlaylist('Funk','Fly away');
+
+//catalog1.removeSongFromPlaylist('Funk','Fly away');
 
 // catalog1.removePlaylist('Rock');
-// catalog1.favoriteSong('Funk','Hey Jude');
-// console.log(catalog1.getAllPlaylists());
+catalog1.removeSongFromPlaylist('Funk','Hey Jude');
+
+console.log(catalog1.getAllPlaylists());
 // catalog1.favoriteSong('Funk','Hey Jude');
 // console.log(catalog1.getAllPlaylists());
 // catalog1.addSongToPlaylist('Funk',{ title: "Don't Phunk with My Heart", artist: 'Black Eyed Peas', genre: 'hip hop', duration: 6 })
