@@ -58,17 +58,16 @@ const musicCatalog = () => {
     );
     if (!playlist) {
       throw new Error(`The playlist ${playlistName} doesn't exist`);
-    } else {
-      playlists = playlists.map((playlist) => {
+    }
+    playlists = playlists.map((playlist) => {
         if (playlistName !== playlist.name) {
           return playlist;
         } else {
           song.favorite = false;
-          return { ...playlist, songs: [song] };
+          return { ...playlist, songs: [...playlist.songs, song] };
         }
       });
-    }
-  };
+    };
 
   /**
    * Removes a song from a specific playlist.
@@ -155,8 +154,9 @@ catalog1.addSongToPlaylist("Funk", {
 
 console.log(catalog1.getAllPlaylists());
 
-//catalog1.addSongToPlaylist('Funk',{ title: 'Hey Jude', artist: 'The Beatles', genre: 'rock', duration: 5 });
+catalog1.addSongToPlaylist("Funk",{ title: 'Hey Jude', artist: 'The Beatles', genre: 'rock', duration: 5 });
 
+console.log(catalog1.getAllPlaylists())
 // catalog1.removeSongFromPlaylist('Funk','Fly away');
 
 // catalog1.removePlaylist('Rock');
