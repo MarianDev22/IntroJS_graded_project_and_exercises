@@ -60,14 +60,14 @@ const musicCatalog = () => {
       throw new Error(`The playlist ${playlistName} doesn't exist`);
     }
     playlists = playlists.map((playlist) => {
-        if (playlistName !== playlist.name) {
-          return playlist;
-        } else {
-          song.favorite = false;
-          return { ...playlist, songs: [...playlist.songs, song] };
-        }
-      });
-    };
+      if (playlistName !== playlist.name) {
+        return playlist;
+      } else {
+        song.favorite = false;
+        return { ...playlist, songs: [...playlist.songs, song] };
+      }
+    });
+  };
 
   /**
    * Removes a song from a specific playlist.
@@ -87,14 +87,15 @@ const musicCatalog = () => {
     }
 
     playlists = playlists.map((playlist) => {
-        if (playlistName !== playlist.name) {
-          return playlist;
-        } else {
-          return { ...playlist, songs: [...playlist.songs.filter((song) => title !== song.title)] };
-        }
-      });
-    
-    //playlist.songs = playlist.songs.filter((song) => title !== song.title);
+      if (playlistName !== playlist.name) {
+        return playlist;
+      } else {
+        return {
+          ...playlist,
+          songs: playlist.songs.filter((song) => title !== song.title),
+        };
+      }
+    });
   };
 
   /**
@@ -104,11 +105,22 @@ const musicCatalog = () => {
    * @returns {void}
    */
   const favoriteSong = (playlistName, title) => {
-    const playlist = playlists.find(
-      (playlist) => playlistName === playlist.name,
-    );
-    const song = playlist.songs.find((song) => song.title == title);
-    song.favorite = !song.favorite;
+    playlists = playlists.map((playlist) => {
+      if (playlistName !== playlist.name) {
+        return playlist;
+      } else {
+        return {
+          ...playlist,
+          songs: playlist.songs.map((song) => {
+            if (title !== song.title) {
+              return song;
+            } else {
+              return { ...song, favorite: !song.favorite };
+            }
+          }),
+        };
+      }
+    });
   };
 
   /**
@@ -128,8 +140,11 @@ const musicCatalog = () => {
     if (!["title", "artist", "duration"].includes(criterion)) {
       throw new Error(`It's not possible to sort songs by ${criterion}`);
     }
+    
+
+
     if (criterion === "title" || criterion === "artist") {
-      playlist.songs.sort((a, b) => a[criterion].localeCompare(b[criterion]));
+      [...playlist.songs].sort((a, b) => a[criterion].localeCompare(b[criterion]));
     } else {
       playlist.songs.sort((a, b) => a[criterion] - b[criterion]);
     }
@@ -163,18 +178,23 @@ catalog1.addSongToPlaylist("Funk", {
 
 console.log(catalog1.getAllPlaylists());
 
-catalog1.addSongToPlaylist("Funk",{ title: 'Hey Jude', artist: 'The Beatles', genre: 'rock', duration: 5 });
+catalog1.addSongToPlaylist("Funk", {
+  title: "Hey Jude",
+  artist: "The Beatles",
+  genre: "rock",
+  duration: 5,
+});
 
-console.log(catalog1.getAllPlaylists())
+console.log(catalog1.getAllPlaylists());
 
 //catalog1.removeSongFromPlaylist('Funk','Fly away');
 
 // catalog1.removePlaylist('Rock');
-catalog1.removeSongFromPlaylist('Funk','Hey Jude');
+catalog1.removeSongFromPlaylist("Funk", "Hey Jude");
 
 console.log(catalog1.getAllPlaylists());
-// catalog1.favoriteSong('Funk','Hey Jude');
-// console.log(catalog1.getAllPlaylists());
+catalog1.favoriteSong("Funk", "Gravity");
+console.log(catalog1.getAllPlaylists());
 // catalog1.addSongToPlaylist('Funk',{ title: "Don't Phunk with My Heart", artist: 'Black Eyed Peas', genre: 'hip hop', duration: 6 })
 
 // catalog1.sortSongs('Funk', 'duration');
